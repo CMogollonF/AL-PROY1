@@ -60,7 +60,7 @@ public class Connection {
             BufferedReader keyboard = new BufferedReader(
                 new InputStreamReader(System.in)
             );
-            while ((message = keyboard.readLine()) != null){
+            while (!listener.isTerminated() && (message = keyboard.readLine()) != null){
                 remoteWriter.println(message);
                 System.out.println("Sent message to remote.");
             }
@@ -71,6 +71,7 @@ public class Connection {
         }
 
         try{
+            listener.terminate();
             client.close();
             server.close();
             remote.close();
@@ -84,6 +85,7 @@ public class Connection {
     private class Listener extends Thread {
 
         private Socket socket;
+        private boolean terminated = false;
 
         public Listener(Socket socket){
             this.socket = socket;
@@ -92,17 +94,29 @@ public class Connection {
         @Override
         public void run() {
             try{
-            BufferedReader remoteMessage = new BufferedReader(
-                new InputStreamReader(socket.getInputStream())
-            );
+                BufferedReader remoteMessage = new BufferedReader(
+                    new InputStreamReader(socket.getInputStream())
+                );
 
-            String msg;
-            while((msg = remoteMessage.readLine()) != null){
-                System.out.println(String.format("[Remote]: %s", msg));
+                String msg;
+                while (!terminated) {
+                    while((msg = remoteMessage.readLine()) != null){
+                        System.out.println(String.format("[Remote]: %s", msg));
+                    }
+                }
+            } catch (IOException e){
+                System.out.println("Connection terminated.");
+                this.terminated = true;
             }
-        } catch (IOException e){
-            System.out.println("Connection terminated.");
+            System.out.println("Finished reading.");
         }
+
+        public void terminate(){
+            this.terminated = true;
+        }
+
+        public boolean isTerminated(){
+            return this.terminated;
         }
     }
 }
