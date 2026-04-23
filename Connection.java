@@ -27,11 +27,11 @@ public class Connection {
             } catch (IOException e){
                 connectionAttemps++;
                 System.out.print(String.format("\b\b\b\b\b%d)...", connectionAttemps));
-                if(connectionAttemps >= 3){
+                if(connectionAttemps >= 15){
                     System.err.println("\nRemote failed to respond in time. Terminating...");
                     return;
                 }
-                Thread.sleep(100);
+                Thread.sleep(1000);
             }
         }
 
