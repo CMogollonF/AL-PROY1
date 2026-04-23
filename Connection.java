@@ -83,7 +83,6 @@ public class Connection {
     private class Listener extends Thread {
 
         private Socket socket;
-        private boolean stop = false;
 
         public Listener(Socket socket){
             this.socket = socket;
