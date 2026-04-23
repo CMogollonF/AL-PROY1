@@ -39,7 +39,7 @@ public class Connection {
         try{
             remote = server.accept();
         } catch (IOException e){
-            System.err.println("Remote unavailable. Terminating...");
+            System.err.println("\nRemote unavailable. Terminating...");
             return;
         }
 
@@ -49,7 +49,7 @@ public class Connection {
         listener.start();
 
         
-        System.out.println("Remote connected. Starting session...");
+        System.out.println("\nRemote connected. Starting session...");
 
         try{
             PrintWriter remoteWriter = new PrintWriter(
@@ -68,7 +68,7 @@ public class Connection {
             server.close();
             remote.close();
         } catch (IOException e){
-            System.err.println("Session terminated forcefully.");
+            System.err.println(String.format("Session terminated forcefully ().", e));
         }
         
     }
