@@ -1,4 +1,5 @@
 public final class GridOperations {
+
     public static int calculateDet(int[][] grid){
         int det = 0;
         for(int i = 0; i < grid.length; i++){
