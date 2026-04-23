@@ -60,7 +60,9 @@ public class Connection {
             BufferedReader keyboard = new BufferedReader(
                 new InputStreamReader(System.in)
             );
-            while (!listener.isTerminated() && (message = keyboard.readLine()) != null){
+            while (!listener.isTerminated()){
+                message = keyboard.readLine();
+                if (message == null) break;
                 remoteWriter.println(message);
                 System.out.println("Sent message to remote.");
             }
@@ -99,16 +101,17 @@ public class Connection {
                 );
 
                 String msg;
-                while (!terminated) {
-                    while((msg = remoteMessage.readLine()) != null){
-                        System.out.println(String.format("[Remote]: %s", msg));
-                    }
+                while (!isTerminated()) {
+                    msg = remoteMessage.readLine();
+                    if (msg == null) break;
+                    System.out.println(String.format("[Remote]: %s", msg));
+
                 }
             } catch (IOException e){
                 System.out.println("Connection terminated.");
-                this.terminate();
             }
             System.out.println("Finished reading.");
+            this.terminate();
         }
 
         public void terminate(){
