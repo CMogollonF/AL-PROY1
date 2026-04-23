@@ -62,11 +62,12 @@ public class Connection {
             );
             while ((message = keyboard.readLine()) != null){
                 remoteWriter.println(message);
+                System.out.println("Sent message to remote.");
             }
 
             
         } catch (IOException e){
-            System.err.println(String.format("Session terminated forcefully ().", e.getMessage()));
+            System.err.println(String.format("Session terminated forcefully (%s).", e.getMessage()));
         }
 
         try{

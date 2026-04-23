@@ -18,7 +18,6 @@ public class TestConnection {
 
         System.out.print(String.format("Ingrese la ip remota (su ip es %s): ", localAddress));
         String ipAdress = tec.readLine();
-        tec.close();
 
         //start connection
         new Connection(ipAdress);
