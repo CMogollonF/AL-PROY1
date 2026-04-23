@@ -106,7 +106,7 @@ public class Connection {
                 }
             } catch (IOException e){
                 System.out.println("Connection terminated.");
-                this.terminated = true;
+                this.terminate();
             }
             System.out.println("Finished reading.");
         }
