@@ -26,11 +26,11 @@ public class Connection {
                 this.client = new Socket(ipAddress, 5000);
             } catch (IOException e){
                 connectionAttemps++;
+                System.out.print(String.format("\b\b\b\b\b%d)...", connectionAttemps));
                 if(connectionAttemps >= 3){
-                    System.err.println("Remote failed to respond in time. Terminating...");
+                    System.err.println("\nRemote failed to respond in time. Terminating...");
                     return;
                 }
-                System.out.print(String.format("\b\b\b\b\b%d)...", connectionAttemps));
                 Thread.sleep(100);
             }
         }
