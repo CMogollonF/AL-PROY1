@@ -64,11 +64,18 @@ public class Connection {
                 remoteWriter.println(message);
             }
 
+            
+        } catch (IOException e){
+            System.err.println(String.format("Session terminated forcefully ().", e.getMessage()));
+        }
+
+        try{
             client.close();
             server.close();
             remote.close();
-        } catch (IOException e){
-            System.err.println(String.format("Session terminated forcefully ().", e));
+    
+        } catch(IOException e){
+            
         }
         
     }
@@ -76,6 +83,7 @@ public class Connection {
     private class Listener extends Thread {
 
         private Socket socket;
+        private boolean stop = false;
 
         public Listener(Socket socket){
             this.socket = socket;
