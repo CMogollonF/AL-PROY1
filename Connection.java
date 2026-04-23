@@ -62,9 +62,9 @@ public class Connection {
             );
             while (!listener.isTerminated()){
                 message = keyboard.readLine();
-                if (message == null) break;
+                if (message.isEmpty()) break;
                 remoteWriter.println(message);
-                System.out.println("Sent message to remote.");
+                System.out.println(String.format("Sent message (%s) to remote.", message));
             }
 
             
@@ -95,6 +95,7 @@ public class Connection {
 
         @Override
         public void run() {
+            System.out.println("Started reading from remote.");
             try{
                 BufferedReader remoteMessage = new BufferedReader(
                     new InputStreamReader(socket.getInputStream())
@@ -103,10 +104,11 @@ public class Connection {
                 String msg;
                 while (!isTerminated()) {
                     msg = remoteMessage.readLine();
-                    if (msg == null) break;
+                    if (msg.isBlank()) continue;
                     System.out.println(String.format("[Remote]: %s", msg));
 
                 }
+                socket.close();
             } catch (IOException e){
                 System.out.println("Connection terminated.");
             }
