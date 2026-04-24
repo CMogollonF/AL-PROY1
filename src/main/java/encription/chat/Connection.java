@@ -139,7 +139,7 @@ public class Connection {
                     // if (msg.isBlank()) continue;
                     
                     ChatUtils.removeMessage(message.length());
-                    ChatUtils.println(String.format(ParseText.getText(terminal, "ChatBlueprint") + "%s",ParseText.getText(terminal, "RemoteDefault"), msg));
+                    ChatUtils.println(String.format(ParseText.getText(terminal, "ChatBlueprint"),ParseText.getText(terminal, "RemoteDefault"), msg));
                     ChatUtils.printCurrentMessage(terminal, message.toString());
 
 
