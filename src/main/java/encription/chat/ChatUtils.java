@@ -4,8 +4,11 @@ import java.io.IOException;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
+import encription.Coloring.ParseText;
+
 public class ChatUtils {
     private static Terminal terminal = null;
+    private static boolean closed = false;
 
     protected static void removeMessage(int size){
         for(int i = 0; i < size + 7; i++){
@@ -13,8 +16,8 @@ public class ChatUtils {
         }
     }
 
-    protected static void printCurrentMessage(String Message){
-        System.out.print(String.format("[you]: %s", Message));
+    protected static void printCurrentMessage(Terminal terminal, String Message){
+        System.out.print(String.format(ParseText.getText(terminal, "ChatBlueprint"), ParseText.getText(terminal, "UserDefault"), Message));
     }
 
     protected static int read() throws IOException{
@@ -38,21 +41,24 @@ public class ChatUtils {
     }
 
     public static void setNonblockingTerminal() throws IOException{
-        if (terminal == null) terminal = createTerminal();
+        if (terminal == null) terminal = getTerminal();
 
         terminal.enterRawMode();
     }
 
     public static void closeTerminal() throws IOException{
         terminal.close();
+        closed = true;
     }
 
-    public static Terminal createTerminal() throws IOException{
-        if (terminal == null) {
+    public static Terminal getTerminal() throws IOException{
+        if (terminal == null | closed) {
             terminal = TerminalBuilder.builder()
                 .system(true)
                 .jna(true)
                 .build();
+
+            closed = false;
         }
 
         return terminal;

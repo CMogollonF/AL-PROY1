@@ -21,10 +21,9 @@ public class Main {
         String localAddress = ds.getLocalAddress().getHostAddress();
         ds.close();
         
-        Terminal terminal = ChatUtils.createTerminal();
+        Terminal terminal = ChatUtils.getTerminal();
         System.out.print(String.format(ParseText.getText(terminal, "start"), localAddress));
         String ipAdress = tec.readLine();
-        ChatUtils.closeTerminal();
 
         //start connection
         new Connection(ipAdress);

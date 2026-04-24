@@ -57,7 +57,7 @@
     },
     {
         "name": "ChatBlueprint",
-        "string": "[%s]:",
+        "string": "[%s]: %s",
         "attributes": {
             "color": "WHITE",
             "bold": false

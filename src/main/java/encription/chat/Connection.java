@@ -3,7 +3,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 import org.jline.terminal.Terminal;
 
@@ -13,7 +14,8 @@ public class Connection {
 
     public Connection(String ipAddress) throws InterruptedException, IOException{
         Socket socket = null;
-        Terminal terminal = ChatUtils.createTerminal();
+        Terminal terminal = ChatUtils.getTerminal();
+
         if ("SERVER".equals(ipAddress.toUpperCase())){
             ServerSocket server;
             try{
@@ -70,8 +72,7 @@ public class Connection {
             ChatUtils.setNonblockingTerminal();
 
             while (!listener.isTerminated()){
-                message.append(String.format(ParseText.getText(terminal, "ChatBlueprint") + "%s",ParseText.getText(terminal, "UserDefault"), message.toString()));
-                ChatUtils.printCurrentMessage("");
+                ChatUtils.printCurrentMessage(terminal , message.toString());
                 while(!listener.isTerminated()){
                     int letter = ChatUtils.readCharNonBlocking();
                     if (letter == 0) continue;
@@ -131,7 +132,7 @@ public class Connection {
 
                 String msg;
                 while (!isTerminated()) {
-                    Terminal terminal = ChatUtils.createTerminal();
+                    Terminal terminal = ChatUtils.getTerminal();
 
                     msg = remoteMessage.readLine();
                     if(msg == null) break;
@@ -139,7 +140,7 @@ public class Connection {
                     
                     ChatUtils.removeMessage(message.length());
                     ChatUtils.println(String.format(ParseText.getText(terminal, "ChatBlueprint") + "%s",ParseText.getText(terminal, "RemoteDefault"), msg));
-                    ChatUtils.printCurrentMessage(message.toString());
+                    ChatUtils.printCurrentMessage(terminal, message.toString());
 
 
                 }
@@ -149,7 +150,7 @@ public class Connection {
                 this.terminate();
                 return;
             }
-            System.out.println("Remote closed connection. Press enter to exit.");
+            System.out.println("Remote closed connection.");
             this.terminate();
         }
 
