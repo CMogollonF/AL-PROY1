@@ -16,7 +16,7 @@ public class TestConnection {
         ds.close();
         
 
-        System.out.print(String.format("Ingrese la ip remota (su ip es %s): ", localAddress));
+        System.out.print(String.format("Ingrese la ip remota o \"SERVER\" para tomar rol de servidor (su ip es %s): ", localAddress));
         String ipAdress = tec.readLine();
 
         //start connection
