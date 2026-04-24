@@ -26,6 +26,7 @@ public class Connection {
             }
 
             try{
+                ChatUtils.println(ParseText.getText(terminal, "ConnectingServer"));
                 socket = server.accept();
                 server.close();
             } catch (IOException e){
@@ -56,7 +57,7 @@ public class Connection {
         
 
         
-        System.out.println(ParseText.getText(terminal, "RemoteConnected"));
+        ChatUtils.println(ParseText.getText(terminal, "RemoteConnected"));
         
         try{
             
@@ -79,6 +80,7 @@ public class Connection {
                     if (letter == 13) break;
 
                     if (letter == 8) {
+                        if (message.length() == 0) continue;
                         ChatUtils.print("\b \b");
                         message.deleteCharAt(message.length() - 1);
                         continue;
@@ -117,10 +119,12 @@ public class Connection {
         private Socket socket;
         private StringBuilder message;
         private boolean terminated = false;
+        Terminal terminal;
 
-        public Listener(Socket socket, StringBuilder message){
+        public Listener(Socket socket, StringBuilder message) throws IOException{
             this.socket = socket;
             this.message = message;
+            this.terminal = ChatUtils.getTerminal();
         }
 
         @Override
@@ -132,7 +136,6 @@ public class Connection {
 
                 String msg;
                 while (!isTerminated()) {
-                    Terminal terminal = ChatUtils.getTerminal();
 
                     msg = remoteMessage.readLine();
                     if(msg == null) break;
@@ -146,11 +149,11 @@ public class Connection {
                 }
                 socket.close();
             } catch (IOException e){
-                System.out.println("Connection terminated.");
+                ChatUtils.println(ParseText.getText(terminal, "ConnectionTerminated"));
                 this.terminate();
                 return;
             }
-            System.out.println("Remote closed connection.");
+            ChatUtils.println(ParseText.getText(terminal, "RemoteClosed")); 
             this.terminate();
         }
 

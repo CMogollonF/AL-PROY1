@@ -56,6 +56,22 @@
         }
     },
     {
+        "name": "ConnectionTerminated",
+        "string": "Connection terminated.",
+        "attributes": {
+            "color": "RED",
+            "bold": true
+        }
+    },
+    {
+        "name": "RemoteClosed",
+        "string": "Remote closed connection.",
+        "attributes": {
+            "color": "RED",
+            "bold": true
+        }
+    },
+    {
         "name": "ChatBlueprint",
         "string": "[%s]: %s",
         "attributes": {
