@@ -1,8 +1,11 @@
+package encription.chat;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
+
+import org.jline.terminal.Terminal;
 
 public class Connection {
 
@@ -45,28 +48,50 @@ public class Connection {
         }
 
         
-        Listener listener = new Listener(socket);
         
-        listener.start();
 
         
         System.out.println("\nRemote connected. Starting session...");
-
+        
         try{
+            
             PrintWriter remoteWriter = new PrintWriter(
                 socket.getOutputStream(), true
             );
+            
+            StringBuilder message = new StringBuilder();
+            Listener listener = new Listener(socket, message);
+            
+            listener.start();
+            
+            ChatUtils.setNonblockingTerminal();
 
-            String message;
-            BufferedReader keyboard = new BufferedReader(
-                new InputStreamReader(System.in)
-            );
             while (!listener.isTerminated()){
-                message = keyboard.readLine();
+                ChatUtils.printCurrentMessage("");
+                while(!listener.isTerminated()){
+                    int letter = ChatUtils.readCharNonBlocking();
+                    if (letter == 0) continue;
+                    if (letter == 13) break;
+
+                    if (letter == 8) {
+                        ChatUtils.print("\b \b");
+                        message.deleteCharAt(message.length() - 1);
+                        continue;
+                    }
+
+                    message.append((char) letter);
+                    ChatUtils.print(String.valueOf((char) letter));
+                }
+                ChatUtils.println("");
                 if (message.isEmpty()) break;
-                remoteWriter.println(message);
-                System.out.println(String.format("Sent message (%s) to remote.", message));
+
+                remoteWriter.println(message.toString());
+                message.delete(0, message.length());    
+                while(ChatUtils.readCharNonBlocking() != 0);
+                // System.out.println(String.format("Sent message (%s) to remote.", message));
             }
+            ChatUtils.exitNonBlocking();
+            listener.terminate();
 
             
         } catch (IOException e){
@@ -74,7 +99,6 @@ public class Connection {
         }
 
         try{
-            listener.terminate();
             socket.close();
     
         } catch(IOException e){
@@ -86,15 +110,16 @@ public class Connection {
     private class Listener extends Thread {
 
         private Socket socket;
+        private StringBuilder message;
         private boolean terminated = false;
 
-        public Listener(Socket socket){
+        public Listener(Socket socket, StringBuilder message){
             this.socket = socket;
+            this.message = message;
         }
 
         @Override
         public void run() {
-            System.out.println("Started reading from remote.");
             try{
                 BufferedReader remoteMessage = new BufferedReader(
                     new InputStreamReader(socket.getInputStream())
@@ -105,7 +130,11 @@ public class Connection {
                     msg = remoteMessage.readLine();
                     if(msg == null) break;
                     // if (msg.isBlank()) continue;
-                    System.out.println(String.format("[Remote]: %s", msg));
+                    
+                    ChatUtils.removeMessage(message.length());
+                    ChatUtils.println(String.format("[Remote]: %s", msg));
+                    ChatUtils.printCurrentMessage(message.toString());
+
 
                 }
                 socket.close();
