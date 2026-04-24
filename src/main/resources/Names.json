@@ -91,7 +91,7 @@
         "name": "RemoteDefault",
         "string": "REMOTE",
         "attributes": {
-            "color": "GREEN",
+            "color": "YELLOW",
             "bold": true
         }
     }

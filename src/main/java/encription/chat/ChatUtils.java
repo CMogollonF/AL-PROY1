@@ -40,6 +40,10 @@ public class ChatUtils {
         ChatUtils.print(message + "\n");
     }
 
+    public static void printFromJson(Terminal terminal, String name){
+        ChatUtils.println(ParseText.getText(terminal, name));
+    }
+
     public static void setNonblockingTerminal() throws IOException{
         if (terminal == null) terminal = getTerminal();
 

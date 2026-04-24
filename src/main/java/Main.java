@@ -6,7 +6,6 @@ import java.net.InetAddress;
 
 import org.jline.terminal.Terminal;
 
-import encription.Coloring.ParseText;
 import encription.chat.ChatUtils;
 import encription.chat.Connection;
 
@@ -22,7 +21,7 @@ public class Main {
         ds.close();
         
         Terminal terminal = ChatUtils.getTerminal();
-        System.out.print(String.format(ParseText.getText(terminal, "start"), localAddress));
+        ChatUtils.printFromJson(terminal, "start");
         String ipAdress = tec.readLine();
 
         //start connection

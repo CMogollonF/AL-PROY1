@@ -26,7 +26,7 @@ public class Connection {
             }
 
             try{
-                ChatUtils.println(ParseText.getText(terminal, "ConnectingServer"));
+                ChatUtils.printFromJson(terminal, "ConnectingServer");
                 socket = server.accept();
                 server.close();
             } catch (IOException e){
@@ -57,7 +57,7 @@ public class Connection {
         
 
         
-        ChatUtils.println(ParseText.getText(terminal, "RemoteConnected"));
+        ChatUtils.printFromJson(terminal, "RemoteConnected");
         
         try{
             
@@ -90,7 +90,10 @@ public class Connection {
                     ChatUtils.print(String.valueOf((char) letter));
                 }
                 ChatUtils.println("");
-                if (message.isEmpty()) break;
+                if (message.isEmpty()) {
+                    ChatUtils.printFromJson(terminal, "ConnectionTerminated");
+                    break;
+                };
 
                 remoteWriter.println(message.toString());
                 message.delete(0, message.length());    
@@ -149,11 +152,11 @@ public class Connection {
                 }
                 socket.close();
             } catch (IOException e){
-                ChatUtils.println(ParseText.getText(terminal, "ConnectionTerminated"));
+                ChatUtils.printFromJson(terminal, "ConnectionTerminated");
                 this.terminate();
                 return;
             }
-            ChatUtils.println(ParseText.getText(terminal, "RemoteClosed")); 
+            ChatUtils.printFromJson(terminal, "RemoteClosed");
             this.terminate();
         }
 
