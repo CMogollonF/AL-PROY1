@@ -5,8 +5,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
 
-import org.jline.terminal.Terminal;
-
 public class Connection {
 
     public Connection(String ipAddress) throws InterruptedException{
@@ -90,7 +88,7 @@ public class Connection {
                 while(ChatUtils.readCharNonBlocking() != 0);
                 // System.out.println(String.format("Sent message (%s) to remote.", message));
             }
-            ChatUtils.exitNonBlocking();
+            ChatUtils.closeTerminal();
             listener.terminate();
 
             

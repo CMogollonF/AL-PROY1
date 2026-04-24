@@ -3,6 +3,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+
+import org.jline.terminal.Terminal;
+
+import encription.Coloring.ParseText;
+import encription.chat.ChatUtils;
 import encription.chat.Connection;
 
 public class Main {
@@ -16,9 +21,10 @@ public class Main {
         String localAddress = ds.getLocalAddress().getHostAddress();
         ds.close();
         
-
-        System.out.print(String.format("Ingrese la ip remota o \"SERVER\" para tomar rol de servidor (su ip es %s): ", localAddress));
+        Terminal terminal = ChatUtils.createTerminal();
+        System.out.print(String.format(ParseText.getText(terminal, "start"), localAddress));
         String ipAdress = tec.readLine();
+        ChatUtils.closeTerminal();
 
         //start connection
         new Connection(ipAdress);

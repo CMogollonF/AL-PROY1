@@ -28,25 +28,31 @@ public class ChatUtils {
         return 0;
     }
 
-    protected static void print(String message){
+    public static void print(String message){
         terminal.writer().print(message);
         terminal.writer().flush();
     }
 
-    protected static void println(String message){
+    public static void println(String message){
         ChatUtils.print(message + "\n");
     }
 
-    protected static void setNonblockingTerminal() throws IOException{
+    public static void setNonblockingTerminal() throws IOException{
+        terminal = createTerminal();
+
+        terminal.enterRawMode();
+    }
+
+    public static void closeTerminal() throws IOException{
+        terminal.close();
+    }
+
+    public static Terminal createTerminal() throws IOException{
         terminal = TerminalBuilder.builder()
         .system(true)
         .jna(true)
         .build();
 
-        terminal.enterRawMode();
-    }
-
-    protected static void exitNonBlocking() throws IOException{
-        terminal.close();
+        return terminal;
     }
 }

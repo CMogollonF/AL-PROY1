@@ -5,19 +5,19 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.chat</groupId>
+    <groupId>com.encription</groupId>
     <artifactId>AL1</artifactId>
     <version>1.0</version>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
 
    <build>
         <plugins>
 
-            <!-- Plugin para ejecutar el programa -->
+            <!-- Execution directives -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -31,11 +31,19 @@
     </build>
 
     <dependencies>
+        <!-- Jline for terminal utils -->
         <dependency>
             <groupId>org.jline</groupId>
             <artifactId>jline</artifactId>
             <version>3.25.1</version>
         </dependency>
+        <!-- Gson for JSON files -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>
