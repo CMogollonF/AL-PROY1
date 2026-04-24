@@ -54,7 +54,7 @@ public class Connection {
 
         try{
             PrintWriter remoteWriter = new PrintWriter(
-                socket.getOutputStream()
+                socket.getOutputStream(), true
             );
 
             String message;
@@ -103,15 +103,18 @@ public class Connection {
                 String msg;
                 while (!isTerminated()) {
                     msg = remoteMessage.readLine();
-                    if (msg.isBlank()) continue;
+                    if(msg == null) break;
+                    // if (msg.isBlank()) continue;
                     System.out.println(String.format("[Remote]: %s", msg));
 
                 }
                 socket.close();
             } catch (IOException e){
                 System.out.println("Connection terminated.");
+                this.terminate();
+                return;
             }
-            System.out.println("Finished reading.");
+            System.out.println("Remote closed connection. Press enter to exit.");
             this.terminate();
         }
 
