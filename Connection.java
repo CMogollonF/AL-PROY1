@@ -5,46 +5,47 @@ import java.io.PrintWriter;
 import java.net.*;
 
 public class Connection {
-    private ServerSocket server;
-    private Socket client;
 
     public Connection(String ipAddress) throws InterruptedException{
-        try{
-            this.server = new ServerSocket(5000);
-        } catch (IOException e) {
-            System.err.println("Server socket unavailable.");
-            return;
-        }
+        Socket socket = null;
+        if ("SERVER".equals(ipAddress.toUpperCase())){
+            ServerSocket server;
+            try{
+                server = new ServerSocket(5000);
+            } catch (IOException e) {
+                System.err.println("Server socket unavailable.");
+                return;
+            }
 
-        int connectionAttemps = 0;
-
-        System.out.print(String.format("Trying to connect to remote (%d)...", connectionAttemps));
-        
-        client = null;
-        while(client == null){
-            try {
-                this.client = new Socket(ipAddress, 5000);
+            try{
+                socket = server.accept();
+                server.close();
             } catch (IOException e){
-                connectionAttemps++;
-                System.out.print(String.format("\b\b\b\b\b%d)...", connectionAttemps));
-                if(connectionAttemps >= 15){
-                    System.err.println("\nRemote failed to respond in time. Terminating...");
-                    return;
+                System.err.println("\nRemote unavailable.");
+            }
+        }
+        else {
+            int connectionAttemps = 0;
+
+            System.out.print(String.format("Trying to connect to remote (%d)...", connectionAttemps));
+            
+            while(socket == null){
+                try {
+                    socket = new Socket(ipAddress, 5000);
+                } catch (IOException e){
+                    connectionAttemps++;
+                    System.out.print(String.format("\b\b\b\b\b%d)...", connectionAttemps));
+                    if(connectionAttemps >= 15){
+                        System.err.println("\nRemote failed to respond in time. Terminating...");
+                        return;
+                    }
+                    Thread.sleep(1000);
                 }
-                Thread.sleep(1000);
             }
         }
 
-        Socket remote = null;
-        try{
-            remote = server.accept();
-        } catch (IOException e){
-            System.err.println("\nRemote unavailable. Terminating...");
-            return;
-        }
-
         
-        Listener listener = new Listener(remote);
+        Listener listener = new Listener(socket);
         
         listener.start();
 
@@ -53,7 +54,7 @@ public class Connection {
 
         try{
             PrintWriter remoteWriter = new PrintWriter(
-                client.getOutputStream()
+                socket.getOutputStream()
             );
 
             String message;
@@ -74,9 +75,7 @@ public class Connection {
 
         try{
             listener.terminate();
-            client.close();
-            server.close();
-            remote.close();
+            socket.close();
     
         } catch(IOException e){
             
