@@ -3,7 +3,7 @@
         "name": "start",
         "string": "Ingrese la ip remota o \"SERVER\" para tomar rol de servidor (su ip es %s): ",
         "attributes": {
-            "color": "BLUE",
+            "color": "MAGENTA",
             "bold": false
         }
     },
@@ -45,6 +45,14 @@
         "attributes": {
             "color": "RED",
             "bold": true
+        }
+    },
+    {
+        "name": "RemoteConnected",
+        "string": "\nRemote connected. Starting session...",
+        "attributes": {
+            "color": "GREEN",
+            "bold": false
         }
     },
     {

@@ -5,7 +5,7 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 public class ChatUtils {
-    private static Terminal terminal;
+    private static Terminal terminal = null;
 
     protected static void removeMessage(int size){
         for(int i = 0; i < size + 7; i++){
@@ -38,7 +38,7 @@ public class ChatUtils {
     }
 
     public static void setNonblockingTerminal() throws IOException{
-        terminal = createTerminal();
+        if (terminal == null) terminal = createTerminal();
 
         terminal.enterRawMode();
     }
@@ -48,10 +48,12 @@ public class ChatUtils {
     }
 
     public static Terminal createTerminal() throws IOException{
-        terminal = TerminalBuilder.builder()
-        .system(true)
-        .jna(true)
-        .build();
+        if (terminal == null) {
+            terminal = TerminalBuilder.builder()
+                .system(true)
+                .jna(true)
+                .build();
+        }
 
         return terminal;
     }

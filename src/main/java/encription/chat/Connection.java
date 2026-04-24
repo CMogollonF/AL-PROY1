@@ -5,16 +5,21 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
 
+import org.jline.terminal.Terminal;
+
+import encription.Coloring.ParseText;
+
 public class Connection {
 
-    public Connection(String ipAddress) throws InterruptedException{
+    public Connection(String ipAddress) throws InterruptedException, IOException{
         Socket socket = null;
+        Terminal terminal = ChatUtils.createTerminal();
         if ("SERVER".equals(ipAddress.toUpperCase())){
             ServerSocket server;
             try{
                 server = new ServerSocket(5000);
             } catch (IOException e) {
-                System.err.println("Server socket unavailable.");
+                System.err.println(ParseText.getText(terminal, "SocketUnavailable"));
                 return;
             }
 
@@ -22,13 +27,13 @@ public class Connection {
                 socket = server.accept();
                 server.close();
             } catch (IOException e){
-                System.err.println("\nRemote unavailable.");
+                System.err.println("\n" + ParseText.getText(terminal, "RemoteUnavailable"));
             }
         }
         else {
             int connectionAttemps = 0;
 
-            System.out.print(String.format("Trying to connect to remote (%d)...", connectionAttemps));
+            System.out.print(String.format(ParseText.getText(terminal, "ConnectingClient"), connectionAttemps));
             
             while(socket == null){
                 try {
@@ -37,7 +42,7 @@ public class Connection {
                     connectionAttemps++;
                     System.out.print(String.format("\b\b\b\b\b%d)...", connectionAttemps));
                     if(connectionAttemps >= 15){
-                        System.err.println("\nRemote failed to respond in time. Terminating...");
+                        System.err.println(ParseText.getText(terminal, "FailedConnection"));
                         return;
                     }
                     Thread.sleep(1000);
@@ -49,7 +54,7 @@ public class Connection {
         
 
         
-        System.out.println("\nRemote connected. Starting session...");
+        System.out.println(ParseText.getText(terminal, "RemoteConnected"));
         
         try{
             
@@ -65,6 +70,7 @@ public class Connection {
             ChatUtils.setNonblockingTerminal();
 
             while (!listener.isTerminated()){
+                message.append(String.format(ParseText.getText(terminal, "ChatBlueprint") + "%s",ParseText.getText(terminal, "UserDefault"), message.toString()));
                 ChatUtils.printCurrentMessage("");
                 while(!listener.isTerminated()){
                     int letter = ChatUtils.readCharNonBlocking();
@@ -93,7 +99,7 @@ public class Connection {
 
             
         } catch (IOException e){
-            System.err.println(String.format("Session terminated forcefully (%s).", e.getMessage()));
+            
         }
 
         try{
@@ -125,12 +131,14 @@ public class Connection {
 
                 String msg;
                 while (!isTerminated()) {
+                    Terminal terminal = ChatUtils.createTerminal();
+
                     msg = remoteMessage.readLine();
                     if(msg == null) break;
                     // if (msg.isBlank()) continue;
                     
                     ChatUtils.removeMessage(message.length());
-                    ChatUtils.println(String.format("[Remote]: %s", msg));
+                    ChatUtils.println(String.format(ParseText.getText(terminal, "ChatBlueprint") + "%s",ParseText.getText(terminal, "RemoteDefault"), msg));
                     ChatUtils.printCurrentMessage(message.toString());
 
 
