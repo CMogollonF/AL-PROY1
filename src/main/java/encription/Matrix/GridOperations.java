@@ -1,3 +1,4 @@
+package encription.Matrix;
 public final class GridOperations {
     public static double calculateDet(double[][] grid){
         double det = 0;

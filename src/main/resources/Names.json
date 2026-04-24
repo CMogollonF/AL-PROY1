@@ -1,0 +1,83 @@
+[
+    {
+        "name": "start",
+        "string": "Ingrese la ip remota o \"SERVER\" para tomar rol de servidor (su ip es %s): ",
+        "attributes": {
+            "color": "MAGENTA",
+            "bold": false
+        }
+    },
+    {
+        "name": "ConnectingClient",
+        "string": "Trying to connect to remote (%d)...",
+        "attributes": {
+            "color": "GREEN",
+            "bold": false
+        }
+    },
+    {
+        "name": "ConnectingServer",
+        "string": "Looking for client...",
+        "attributes": {
+            "color": "GREEN",
+            "bold": false
+        }
+    },
+    {
+        "name": "FailedConnection",
+        "string": "\nRemote failed to respond in time. Terminating...",
+        "attributes": {
+            "color": "RED",
+            "bold": true
+        }
+    },
+    {
+        "name": "RemoteUnavailable",
+        "string": "Remote unavaliable. Terminating...",
+        "attributes": {
+            "color": "RED",
+            "bold": true
+        }
+    },
+    {
+        "name": "SocketUnavailable",
+        "string": "Server socket unavailable.",
+        "attributes": {
+            "color": "RED",
+            "bold": true
+        }
+    },
+    {
+        "name": "RemoteConnected",
+        "string": "\nRemote connected. Starting session...",
+        "attributes": {
+            "color": "GREEN",
+            "bold": false
+        }
+    },
+    {
+        "name": "ChatBlueprint",
+        "string": "[%s]:",
+        "attributes": {
+            "color": "WHITE",
+            "bold": false
+        }
+    },
+    {
+        "name": "UserDefault",
+        "string": "YOU",
+        "attributes": {
+            "color": "GREEN",
+            "bold": true
+        }
+    },
+    {
+        "name": "RemoteDefault",
+        "string": "REMOTE",
+        "attributes": {
+            "color": "GREEN",
+            "bold": true
+        }
+    }
+
+]

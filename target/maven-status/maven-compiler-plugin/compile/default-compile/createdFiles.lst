@@ -1,0 +1,14 @@
+encription\chat\ChatUtils.class
+encription\Matrix\TestMul.class
+encription\chat\Connection$Listener.class
+encription\Coloring\ParseText.class
+encription\Matrix\GridOperations.class
+encription\Matrix\Relations.class
+encription\Matrix\TestDet.class
+encription\chat\Connection.class
+encription\Coloring\Colors.class
+encription\Coloring\Text$Attributes.class
+Main.class
+encription\Coloring\Formatter.class
+encription\Coloring\TextStyle.class
+encription\Coloring\Text.class
