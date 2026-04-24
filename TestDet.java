@@ -1,6 +1,6 @@
 public class TestDet {
     public static void main(String[] args) {
-        int[][] testGrid = {
+        double[][] testGrid = {
             {
                 3, -1, 2
             },

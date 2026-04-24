@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class TestMul {
     public static void main(String[] args) {
-        int[][] firstGrid = {
+        double[][] firstGrid = {
             {
                 -1, 2, -4
             },
@@ -11,7 +11,7 @@ public class TestMul {
             }
         };
 
-        int[][] secondGrid = {
+        double[][] secondGrid = {
             {
                 2, -5
             },
