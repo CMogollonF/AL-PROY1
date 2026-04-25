@@ -64,6 +64,38 @@
         }
     },
     {
+        "name": "AskForPin",
+        "string": "Enter encription pin: ",
+        "attributes": {
+            "color": "MAGENTA",
+            "bold": false
+        }
+    },
+    {
+        "name": "MalformedPin",
+        "string": "Malformed pin. Pin must be an exact square root (lenght 4, 9, 16, ...)",
+        "attributes": {
+            "color": "RED",
+            "bold": true
+        }
+    },
+     {
+        "name": "NotANumber",
+        "string": "Malformed pin. Pin must be numerical.",
+        "attributes": {
+            "color": "RED",
+            "bold": true
+        }
+    },
+    {
+        "name": "MalformedIP",
+        "string": "Malformed IP adress.",
+        "attributes": {
+            "color": "RED",
+            "bold": true
+        }
+    },
+    {
         "name": "RemoteClosed",
         "string": "Remote closed connection.",
         "attributes": {

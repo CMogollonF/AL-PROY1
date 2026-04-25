@@ -9,10 +9,11 @@ import java.net.Socket;
 import org.jline.terminal.Terminal;
 
 import encription.Coloring.ParseText;
+import encription.Matrix.Encription;
 
 public class Connection {
 
-    public Connection(String ipAddress) throws InterruptedException, IOException{
+    public static void Connect(String ipAddress) throws InterruptedException, IOException{
         Socket socket = null;
         Terminal terminal = ChatUtils.getTerminal();
 
@@ -95,7 +96,8 @@ public class Connection {
                     break;
                 };
 
-                remoteWriter.println(message.toString());
+                String encripted = Encription.encriptMessage(message.toString());
+                remoteWriter.println(encripted);
                 message.delete(0, message.length());    
                 while(ChatUtils.readCharNonBlocking() != 0);
                 // System.out.println(String.format("Sent message (%s) to remote.", message));
@@ -117,7 +119,7 @@ public class Connection {
         
     }
 
-    private class Listener extends Thread {
+    private static class Listener extends Thread {
 
         private Socket socket;
         private StringBuilder message;
@@ -144,8 +146,10 @@ public class Connection {
                     if(msg == null) break;
                     // if (msg.isBlank()) continue;
                     
+                    String decrypted = Encription.decryptMessage(msg);
+
                     ChatUtils.removeMessage(message.length());
-                    ChatUtils.println(String.format(ParseText.getText(terminal, "ChatBlueprint"),ParseText.getText(terminal, "RemoteDefault"), msg));
+                    ChatUtils.println(String.format(ParseText.getText(terminal, "ChatBlueprint"),ParseText.getText(terminal, "RemoteDefault"), decrypted));
                     ChatUtils.printCurrentMessage(terminal, message.toString());
 
 
