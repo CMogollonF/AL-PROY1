@@ -1,70 +1,78 @@
 package encription.chat;
-import java.io.IOException;
-
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
-
 import encription.Coloring.ParseText;
 
 public class ChatUtils {
-    private static Terminal terminal = null;
-    private static boolean closed = false;
+    private static Writer terminalWriter;
+
+    private static void startWriter() {
+        if(terminalWriter != null) return;
+
+        terminalWriter = new Writer();
+        terminalWriter.start();
+        
+    }
+
+    public static void killWriter(){
+        terminalWriter.kill();
+    }
+
+    public static boolean isDead(){
+        return terminalWriter.isDead();
+    }
 
     protected static void removeMessage(int size){
+
         for(int i = 0; i < size + 7; i++){
-            System.out.print("\b");
+            ChatUtils.print("\b");
         }
     }
 
-    protected static void printCurrentMessage(Terminal terminal, String Message){
-        System.out.print(String.format(ParseText.getText(terminal, "ChatBlueprint"), ParseText.getText(terminal, "UserDefault"), Message));
+    protected static void printCurrentMessage(String Message){
+
+        ChatUtils.print(String.format(ParseText.getText("ChatBlueprint"), ParseText.getText("UserDefault"), Message));
     }
 
-    protected static int read() throws IOException{
-        return terminal.reader().read();
+    protected static String read() {
+        ChatUtils.startWriter();
+
+        return terminalWriter.read();
     }
 
-    protected static int readCharNonBlocking() throws IOException{
-        if(terminal.reader().ready()) {
-            return ChatUtils.read();
+    public static String readLine(){
+        StringBuilder message = new StringBuilder();
+
+        while(true){
+            String letter = read();
+            if (letter == null) continue;
+            // print("received string: " + (int) letter.charAt(0) + " - " + letter + "\n");
+            if ((int) letter.charAt(0) == 13) {
+                break;
+            }
+
+            if ((int) letter.charAt(0) == 8) {
+                if (message.length() == 0) continue;
+                message.deleteCharAt(message.length() - 1);
+                continue;
+            }
+
+            message.append(letter);
         }
-        return 0;
+
+        return message.toString();
     }
 
     public static void print(String message){
-        terminal.writer().print(message);
-        terminal.writer().flush();
+        ChatUtils.startWriter();
+
+        terminalWriter.print(message);
     }
 
     public static void println(String message){
+
         ChatUtils.print(message + "\n");
     }
 
-    public static void printFromJson(Terminal terminal, String name){
-        ChatUtils.println(ParseText.getText(terminal, name));
-    }
-
-    public static void setNonblockingTerminal() throws IOException{
-        if (terminal == null) terminal = getTerminal();
-
-        terminal.enterRawMode();
-    }
-
-    public static void closeTerminal() throws IOException{
-        terminal.close();
-        closed = true;
-    }
-
-    public static Terminal getTerminal() throws IOException{
-        if (terminal == null | closed) {
-            terminal = TerminalBuilder.builder()
-                .system(true)
-                .jna(true)
-                .build();
-
-            closed = false;
-        }
-
-        return terminal;
+    public static void printFromJson(String name){
+        terminalWriter.print(ParseText.getText(name));
     }
 }

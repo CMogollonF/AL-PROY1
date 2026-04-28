@@ -2,11 +2,10 @@ package encription.Coloring;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import org.jline.terminal.Terminal;
 import com.google.gson.Gson;
 
 public class ParseText {
-    public static String getText(Terminal terminal,String textName){
+    public static String getText(String textName){
 
         Text text = fetchText(textName);
 

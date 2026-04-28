@@ -5,9 +5,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import org.jline.terminal.Terminal;
-
 import encription.Coloring.ParseText;
 import encription.Matrix.Encription;
 
@@ -15,38 +12,37 @@ public class Connection {
 
     public static void Connect(String ipAddress) throws InterruptedException, IOException{
         Socket socket = null;
-        Terminal terminal = ChatUtils.getTerminal();
 
         if ("SERVER".equals(ipAddress.toUpperCase())){
             ServerSocket server;
             try{
                 server = new ServerSocket(5000);
             } catch (IOException e) {
-                System.err.println(ParseText.getText(terminal, "SocketUnavailable"));
+                ChatUtils.println(ParseText.getText("SocketUnavailable"));
                 return;
             }
 
             try{
-                ChatUtils.println(ParseText.getText(terminal, "ConnectingServer"));
+                ChatUtils.println(ParseText.getText("ConnectingServer"));
                 socket = server.accept();
                 server.close();
             } catch (IOException e){
-                System.err.println("\n" + ParseText.getText(terminal, "RemoteUnavailable"));
+                ChatUtils.println("\n" + ParseText.getText("RemoteUnavailable"));
             }
         }
         else {
             int connectionAttemps = 0;
 
-            System.out.print(String.format(ParseText.getText(terminal, "ConnectingClient"), connectionAttemps));
+            ChatUtils.print(String.format(ParseText.getText("ConnectingClient"), connectionAttemps));
             
             while(socket == null){
                 try {
                     socket = new Socket(ipAddress, 5000);
                 } catch (IOException e){
                     connectionAttemps++;
-                    System.out.print(String.format("\b\b\b\b\b%d)...", connectionAttemps));
+                    ChatUtils.print(String.format("\b\b\b\b\b%d)...", connectionAttemps));
                     if(connectionAttemps >= 15){
-                        System.err.println(ParseText.getText(terminal, "FailedConnection"));
+                        ChatUtils.println(ParseText.getText("FailedConnection"));
                         return;
                     }
                     Thread.sleep(1000);
@@ -58,7 +54,7 @@ public class Connection {
         
 
         
-        ChatUtils.println(ParseText.getText(terminal, "RemoteConnected"));
+        ChatUtils.println(ParseText.getText("RemoteConnected"));
         
         try{
             
@@ -70,46 +66,49 @@ public class Connection {
             Listener listener = new Listener(socket, message);
             
             listener.start();
-            
-            ChatUtils.setNonblockingTerminal();
 
             while (!listener.isTerminated()){
-                ChatUtils.printCurrentMessage(terminal , message.toString());
+                ChatUtils.printCurrentMessage(message.toString());
                 while(!listener.isTerminated()){
-                    int letter = ChatUtils.readCharNonBlocking();
-                    if (letter == 0) continue;
-                    if (letter == 13) break;
+                    while(true){
+                        if (ChatUtils.isDead()) break;
+                        String letter = ChatUtils.read();
+                        if (letter == null) continue;
+                        // print("received string: " + (int) letter.charAt(0) + " - " + letter + "\n");
+                        if ((int) letter.charAt(0) == 13) break;
 
-                    if (letter == 8) {
-                        if (message.length() == 0) continue;
-                        ChatUtils.print("\b \b");
-                        message.deleteCharAt(message.length() - 1);
-                        continue;
+                        if ((int) letter.charAt(0) == 8) {
+                            if (message.length() == 0) continue;
+                            message.deleteCharAt(message.length() - 1);
+                            continue;
+                        }
+
+                        message.append(letter);
                     }
 
-                    message.append((char) letter);
-                    ChatUtils.print(String.valueOf((char) letter));
+                    if (message.isEmpty()) {
+                        ChatUtils.println(ParseText.getText("ConnectionTerminated"));
+                        listener.terminate();
+                    } else {
+                        String encripted = Encription.encriptMessage(message.toString());
+                        remoteWriter.println(encripted);
+                        message.delete(0, message.length());    
+                        ChatUtils.println("");
+                    }
                 }
                 ChatUtils.println("");
-                if (message.isEmpty()) {
-                    ChatUtils.println(ParseText.getText(terminal, "ConnectionTerminated"));
-                    break;
-                };
-
-                String encripted = Encription.encriptMessage(message.toString());
-                remoteWriter.println(encripted);
-                message.delete(0, message.length());    
-                while(ChatUtils.readCharNonBlocking() != 0);
-                // System.out.println(String.format("Sent message (%s) to remote.", message));
+                
+                
+                // ChatUtils.println(String.format("Sent message (%s) to remote.", message));
             }
-            ChatUtils.closeTerminal();
-            listener.terminate();
-
+            
+            
             
         } catch (IOException e){
             
         }
-
+        
+        ChatUtils.killWriter();
         try{
             socket.close();
     
@@ -124,12 +123,10 @@ public class Connection {
         private Socket socket;
         private StringBuilder message;
         private boolean terminated = false;
-        Terminal terminal;
 
         public Listener(Socket socket, StringBuilder message) throws IOException{
             this.socket = socket;
             this.message = message;
-            this.terminal = ChatUtils.getTerminal();
         }
 
         @Override
@@ -149,18 +146,18 @@ public class Connection {
                     String decrypted = Encription.decryptMessage(msg);
 
                     ChatUtils.removeMessage(message.length());
-                    ChatUtils.println(String.format(ParseText.getText(terminal, "ChatBlueprint"),ParseText.getText(terminal, "RemoteDefault"), decrypted));
-                    ChatUtils.printCurrentMessage(terminal, message.toString());
+                    ChatUtils.println(String.format(ParseText.getText("ChatBlueprint"),ParseText.getText("RemoteDefault"), decrypted));
+                    ChatUtils.printCurrentMessage(message.toString());
 
 
                 }
                 socket.close();
             } catch (IOException e){
-                ChatUtils.println(ParseText.getText(terminal, "ConnectionTerminated"));
+                ChatUtils.println(ParseText.getText("ConnectionTerminated"));
                 this.terminate();
                 return;
             }
-            ChatUtils.println(ParseText.getText(terminal, "RemoteClosed")); 
+            ChatUtils.println(ParseText.getText("RemoteClosed")); 
             this.terminate();
         }
 
