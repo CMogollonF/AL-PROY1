@@ -67,11 +67,9 @@ public class Connection {
             
             listener.start();
 
-            while (!listener.isTerminated()){
-                ChatUtils.printCurrentMessage(message.toString());
                 while(!listener.isTerminated()){
-                    while(true){
-                        if (ChatUtils.isDead()) break;
+                    ChatUtils.printCurrentMessage(message.toString());
+                    while(!listener.isTerminated()){
                         String letter = ChatUtils.read();
                         if (letter == null) continue;
                         // print("received string: " + (int) letter.charAt(0) + " - " + letter + "\n");
@@ -96,11 +94,6 @@ public class Connection {
                         ChatUtils.println("");
                     }
                 }
-                ChatUtils.println("");
-                
-                
-                // ChatUtils.println(String.format("Sent message (%s) to remote.", message));
-            }
             
             
             

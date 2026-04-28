@@ -30,7 +30,7 @@ public class Writer extends Thread{
     @Override
     public void run(){
         terminal.enterRawMode();
-        terminal.writer().write("starting reader...");
+        // terminal.writer().write("starting reader...");
 
         while(!killed){
             try{
@@ -38,7 +38,7 @@ public class Writer extends Thread{
                 while (!queue.isEmpty()) {
                     String msg = queue.poll();
 
-                    if(msg == "\b") {
+                    if(msg.charAt(0) == '\b') {
                         terminal.writer().write("\b \b");
                     } else {
 
