@@ -2,9 +2,9 @@ package encription.Matrix;
 
 public class TestEncription {
     public static void main(String[] args) {
-        Encription.setMatrix(CreateMatrix.createMatrix("2513"));
+        Encription.setMatrix(CreateMatrix.createMatrix("542243772"));
 
-        String encripted = Encription.encriptMessage("af");
+        String encripted = Encription.encriptMessage("mi nombre es carlos mogollon");
 
         System.out.println(encripted);
 

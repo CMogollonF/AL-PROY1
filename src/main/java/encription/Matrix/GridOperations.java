@@ -1,11 +1,14 @@
 package encription.Matrix;
+
+import java.math.BigInteger;
+
 public final class GridOperations {
     public static double calculateDet(double[][] grid){
         double det = 0;
         for(int i = 0; i < grid.length; i++){
             det += grid[i][0] * calculateCofactor(grid, i, 0);
         }
-        return det;
+        return det % 29;
     } 
 
     private static double calculateCofactor(double[][] grid, int row, int column){
@@ -57,7 +60,7 @@ public final class GridOperations {
 
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid.length; j++) {
-                newGrid[i][j] = calculateCofactor(grid, i, j);
+                newGrid[i][j] = (calculateCofactor(grid, i, j) + 29) % 29;
             }
         }
 
@@ -95,9 +98,10 @@ public final class GridOperations {
 
 
     public static double[][] findInverse(double[][] grid) {
-        double det = calculateDet(grid);
-        if(det == 0) return null;
+        BigInteger det = BigInteger.valueOf((int) calculateDet(grid));
+        if(det.equals(0)) return null;
+        BigInteger result = det.modPow(BigInteger.valueOf(27), BigInteger.valueOf(29));
 
-        return multiplyGrids(1/det, transposeGrid(findCofactors(grid)));
+        return multiplyGrids(result.intValue(), transposeGrid(findCofactors(grid)));
     }
 }
