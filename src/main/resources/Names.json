@@ -79,6 +79,22 @@
             "bold": true
         }
     },
+    {
+        "name": "DeterminantZero",
+        "string": "Associated matrix is unable to be used for encription (determinant = 0).",
+        "attributes" : {
+            "color": "RED",
+            "bold": true
+        }
+    },
+    {
+        "name": "NegativePin",
+        "string": "Pin cannot be a negative number.",
+        "attributes" : {
+            "color": "RED",
+            "bold": true
+        }
+    },
      {
         "name": "NotANumber",
         "string": "Malformed pin. Pin must be numerical.",

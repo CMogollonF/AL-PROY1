@@ -11,6 +11,7 @@ encription\chat\Connection.class
 encription\Matrix\CreateMatrix.class
 encription\Coloring\Colors.class
 encription\Coloring\Text$Attributes.class
+encription\Matrix\TestEncription.class
 Main.class
 encription\Coloring\Formatter.class
 encription\Coloring\TextStyle.class

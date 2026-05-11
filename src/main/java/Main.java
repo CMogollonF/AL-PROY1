@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import encription.Coloring.ParseText;
 import encription.Matrix.CreateMatrix;
 import encription.Matrix.Encription;
+import encription.Matrix.GridOperations;
 import encription.chat.ChatUtils;
 import encription.chat.Connection;
 
@@ -16,9 +17,15 @@ public class Main {
         ChatUtils.println("");
         
         try {
-            Integer.parseInt(pin);
+            int rawPin = Integer.parseInt(pin);
+            if (rawPin < 0){
+                ChatUtils.println(ParseText.getText( "NegativePin"));
+                Thread.sleep(100);
+                System.exit(0);
+            }
         } catch (NumberFormatException e) {
             ChatUtils.println(ParseText.getText( "NotANumber"));
+            Thread.sleep(100);
             System.exit(0);
         }
         
@@ -26,6 +33,13 @@ public class Main {
 
         if (matrix == null){
             ChatUtils.println(ParseText.getText( "MalformedPin"));
+            Thread.sleep(100);
+            System.exit(0);
+        }
+
+        if (GridOperations.calculateDet(matrix) == 0) {
+            ChatUtils.println(ParseText.getText( "DeterminantZero"));
+            Thread.sleep(100);
             System.exit(0);
         }
         
