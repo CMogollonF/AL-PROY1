@@ -12,7 +12,7 @@ public class Relations {
     }   
 
     public static char Decode(int code){
-        if(code < 25) return (char)(code + 'A');
+        if(code <= 25) return (char)(code + 'A');
         else if(code == 26) return '.';
         else if(code == 27) return ',';
         else return ' ';

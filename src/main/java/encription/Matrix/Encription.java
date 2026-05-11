@@ -18,7 +18,7 @@ public class Encription {
             for(int j = 0; j < encriptionMatrix.length; j++)
                 mockGrid[j][0] = (j + i < message.length())? Relations.FetchCode(message.charAt(i + j)) : 28;
 
-            int[][] newGrid = Relations.normalize(GridOperations.multiplyGrids(encriptionMatrix, mockGrid));
+             int[][] newGrid = Relations.normalize(GridOperations.multiplyGrids(encriptionMatrix, mockGrid));
             for(int j = 0; j < mockGrid.length; j++) encriptedMessage.append(Relations.Decode(newGrid[j][0]));
         }
 
