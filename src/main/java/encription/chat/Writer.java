@@ -1,7 +1,6 @@
 package encription.chat;
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.jline.terminal.Terminal;
