@@ -4,6 +4,14 @@ import encription.Matrix.CreateMatrix;
 import encription.Matrix.Encription;
 
 public class TestMode {
+    /**
+     * Test mode to check the encription elements without the need of starting a connection.
+     * Test mode uses the following commands to allow testing:
+     * /switch to switch between encription and decryption;
+     * /change [pin] to change the encription pin
+     * /exit to exit the program.
+     * @throws InterruptedException
+     */
     public static void startTestMode() throws InterruptedException{
         String message;
         boolean enc = true;

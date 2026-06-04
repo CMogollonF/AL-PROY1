@@ -131,6 +131,9 @@ public class Connection {
         
     }
 
+    /**
+     * Auxiliar class that listen for messages for the remote
+     */
     private static class Listener extends Thread {
 
         private Socket socket;
@@ -142,6 +145,9 @@ public class Connection {
             this.message = message;
         }
 
+        /**
+         * Checks wheter remote has sent a message and prints it using the Writer class
+         */
         @Override
         public void run() {
             try{
@@ -174,10 +180,17 @@ public class Connection {
             this.terminate();
         }
 
+        /**
+         * Kills the listener.
+         */
         public void terminate(){
             this.terminated = true;
         }
 
+        /**
+         * 
+         * @return Whether the Listener has been killed
+         */
         public boolean isTerminated(){
             return this.terminated;
         }
