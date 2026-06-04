@@ -45,7 +45,8 @@ public class Main {
         ds.close();
         
         //Ask the user for remote ip (or to take the role of the server)
-        ChatUtils.print(String.format(ParseText.getText( "start"), localAddress));
+        ChatUtils.println(String.format(ParseText.getText( "start"), localAddress));
+        ChatUtils.print(String.format(ParseText.getText("ChatBlueprint"), ParseText.getText("UserDefault"), ""));
         ipAdress = ChatUtils.readLine();
         ChatUtils.println("");
 
@@ -53,7 +54,6 @@ public class Main {
             ChatUtils.printFromJson("test");
             TestMode.startTestMode();
         }
-
         //Make sure we actually got an ip address (or that we chose to me the server/ connect to the same pc)
         if (!(ipAdress.toUpperCase().equals("SERVER") || ipAdress.toUpperCase().equals("LOCALHOST")) && !ipAdress.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")){
             ChatUtils.println(ParseText.getText( "MalformedIP"));
