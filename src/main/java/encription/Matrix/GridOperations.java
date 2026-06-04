@@ -5,7 +5,7 @@ import java.math.BigInteger;
 public final class GridOperations {
     /**
      * Calculates the determinant of a matrix using cofactor expansion along the first column.
-     * Result is normalized modulo 29.
+     * Result is normalized mod 29.
      * 
      * @param grid the matrix
      * @return the determinant mod 29
@@ -151,7 +151,6 @@ public final class GridOperations {
 
     /**
      * Calculates the inverse matrix using the adjugate method and modular arithmetic (mod 29).
-     * Formula: A^-1 = (det(A))^-1 * adj(A) where det(A)^-1 is computed mod 29.
      * Returns null if matrix is singular (determinant = 0).
      * 
      * @param grid the matrix to invert

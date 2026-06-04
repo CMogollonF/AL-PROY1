@@ -66,7 +66,7 @@ public class Main {
             ChatUtils.printFromJson("test");
             TestMode.startTestMode();
         }
-        //Make sure we actually got an ip address (or that we chose to me the server/ connect to the same pc)
+        //Make sure we actually got an ip address (or that we chose to be the server/ connect to the same pc)
         if (!(ipAdress.toUpperCase().equals("SERVER") || ipAdress.toUpperCase().equals("LOCALHOST")) && !ipAdress.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")){
             ChatUtils.println(ParseText.getText( "MalformedIP"));
             Thread.sleep(500);
