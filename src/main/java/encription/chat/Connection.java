@@ -106,6 +106,7 @@ public class Connection {
 
                     if (message.isEmpty()) {
                         ChatUtils.println(ParseText.getText("ConnectionTerminated"));
+                        Thread.sleep(500);
                         listener.terminate();
                     } else {
                         String encripted = Encription.encriptMessage(message.toString());

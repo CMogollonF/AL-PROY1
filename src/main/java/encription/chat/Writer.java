@@ -38,7 +38,7 @@ public class Writer extends Thread{
                     String msg = queue.poll();
 
                     if(msg.charAt(0) == '\b') {
-                        terminal.writer().write("\b \b");
+                        ChatUtils.removeMessage(1);
                     } else {
 
                         terminal.writer().write(msg);
@@ -66,6 +66,10 @@ public class Writer extends Thread{
         } catch (IOException e) {}
     }
 
+    /**
+     * Reads from the saved message list to ensure non blocking behaviour.
+     * @return The queue saved from the list.
+     */
     public String read(){
         if (savedMessage.toString().isEmpty()) return null;
         String msg = savedMessage.toString();
