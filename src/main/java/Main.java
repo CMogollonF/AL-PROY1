@@ -17,7 +17,7 @@ public class Main {
         ChatUtils.println("");
         
         try {
-            int rawPin = Integer.parseInt(pin);
+            long rawPin = Long.parseLong(pin);
             if (rawPin < 0){
                 ChatUtils.println(ParseText.getText( "NegativePin"));
                 Thread.sleep(100);
