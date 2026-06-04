@@ -1,7 +1,7 @@
 [
     {
         "name": "start",
-        "string": "Ingrese la ip remota o \"SERVER\" para tomar rol de servidor (su ip es %s)\nAlternativamente ingrese \"TEST\" para probar unicamente la encripción y desencripción matricial ",
+        "string": "Ingrese la ip remota o \"SERVER\" para tomar rol de servidor (su ip es %s)\nAlternativamente ingrese \"TEST\" para probar unicamente la encripción y desencripción matricial: ",
         "attributes": {
             "color": "MAGENTA",
             "bold": false
@@ -52,6 +52,14 @@
         "string": "Desencripción> ",
         "attributes": {
             "color": "BLUE",
+            "bold": true
+        }
+    },
+    {
+        "name": "exiting",
+        "string": "Saliendo...",
+        "attributes": {
+            "color": "MAGENTA",
             "bold": true
         }
     },

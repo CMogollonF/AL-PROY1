@@ -101,7 +101,6 @@ public final class GridOperations {
         BigInteger det = BigInteger.valueOf((int) calculateDet(grid));
         if(det.equals(0)) return null;
         BigInteger result = det.modPow(BigInteger.valueOf(27), BigInteger.valueOf(29));
-        det.abs();
 
         return multiplyGrids(result.intValue(), transposeGrid(findCofactors(grid)));
     }
