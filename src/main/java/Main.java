@@ -7,6 +7,7 @@ import encription.Matrix.CreateMatrix;
 import encription.Matrix.Encription;
 import encription.chat.ChatUtils;
 import encription.chat.Connection;
+import encription.chat.TestMode;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException{
@@ -47,6 +48,11 @@ public class Main {
         ChatUtils.print(String.format(ParseText.getText( "start"), localAddress));
         ipAdress = ChatUtils.readLine();
         ChatUtils.println("");
+
+        if(ipAdress.toUpperCase().equals("TEST")){
+            ChatUtils.printFromJson("test");
+            TestMode.startTestMode();
+        }
 
         //Make sure we actually got an ip address (or that we chose to me the server/ connect to the same pc)
         if (!(ipAdress.toUpperCase().equals("SERVER") || ipAdress.toUpperCase().equals("LOCALHOST")) && !ipAdress.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")){

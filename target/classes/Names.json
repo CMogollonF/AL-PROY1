@@ -1,7 +1,7 @@
 [
     {
         "name": "start",
-        "string": "Ingrese la ip remota o \"SERVER\" para tomar rol de servidor (su ip es %s)\nAlternativamente ingrese \"TEST\" para probar unicamente la encripción y desencripción matricial ",
+        "string": "Ingrese la ip remota o \"SERVER\" para tomar rol de servidor (su ip es %s)\nAlternativamente ingrese \"TEST\" para probar unicamente la encripción y desencripción matricial: ",
         "attributes": {
             "color": "MAGENTA",
             "bold": false
@@ -56,8 +56,16 @@
         }
     },
     {
+        "name": "exiting",
+        "string": "Saliendo...",
+        "attributes": {
+            "color": "MAGENTA",
+            "bold": true
+        }
+    },
+    {
         "name": "ConnectingClient",
-        "string": "Estableciendo conexión con remoto (%d)...",
+        "string": "Trying to connect to remote (%d)...",
         "attributes": {
             "color": "GREEN",
             "bold": false
@@ -65,7 +73,7 @@
     },
     {
         "name": "ConnectingServer",
-        "string": "Buscando cliente...",
+        "string": "Looking for client...",
         "attributes": {
             "color": "GREEN",
             "bold": false
@@ -73,7 +81,7 @@
     },
     {
         "name": "FailedConnection",
-        "string": "\nConexión no establecida, finalizando...",
+        "string": "\nRemote failed to respond in time. Terminating...",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -81,7 +89,7 @@
     },
     {
         "name": "RemoteUnavailable",
-        "string": "Remoto no disponible, finalizando...",
+        "string": "Remote unavaliable. Terminating...",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -89,7 +97,7 @@
     },
     {
         "name": "SocketUnavailable",
-        "string": "Socket no disponible.",
+        "string": "Server socket unavailable.",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -97,7 +105,7 @@
     },
     {
         "name": "RemoteConnected",
-        "string": "\nRemoto conectado, inicializando...",
+        "string": "\nRemote connected. Starting session...",
         "attributes": {
             "color": "GREEN",
             "bold": false
@@ -105,7 +113,7 @@
     },
     {
         "name": "ConnectionTerminated",
-        "string": "Conexión finalizada.",
+        "string": "Connection terminated.",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -113,7 +121,7 @@
     },
     {
         "name": "AskForPin",
-        "string": "Ingrese pin de encripción: ",
+        "string": "Enter encription pin: ",
         "attributes": {
             "color": "MAGENTA",
             "bold": false
@@ -121,7 +129,7 @@
     },
     {
         "name": "MalformedPin",
-        "string": "Pin no valido, debe ser una raíz exacta (4, 9, 16, ...)",
+        "string": "Malformed pin. Pin must be an exact square root (lenght 4, 9, 16, ...)",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -129,7 +137,7 @@
     },
      {
         "name": "NotANumber",
-        "string": "Pin debe ser un número positivo.",
+        "string": "Malformed pin. Pin must be numerical.",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -137,7 +145,7 @@
     },
     {
         "name": "MalformedIP",
-        "string": "Dirección IP no válida.",
+        "string": "Malformed IP adress.",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -145,7 +153,7 @@
     },
     {
         "name": "RemoteClosed",
-        "string": "Conexioń cerrada por remoto.",
+        "string": "Remote closed connection.",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -161,7 +169,7 @@
     },
     {
         "name": "UserDefault",
-        "string": "TU",
+        "string": "YOU",
         "attributes": {
             "color": "GREEN",
             "bold": true
@@ -169,17 +177,9 @@
     },
     {
         "name": "RemoteDefault",
-        "string": "REMOTO",
+        "string": "REMOTE",
         "attributes": {
             "color": "YELLOW",
-            "bold": true
-        }
-    },
-    {
-        "name": "exiting",
-        "string": "Saliendo...\n",
-        "attributes": {
-            "color": "MAGENTA",
             "bold": true
         }
     }

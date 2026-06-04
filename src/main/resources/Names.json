@@ -1,10 +1,66 @@
 [
     {
         "name": "start",
-        "string": "Ingrese la ip remota o \"SERVER\" para tomar rol de servidor (su ip es %s): ",
+        "string": "Ingrese la ip remota o \"SERVER\" para tomar rol de servidor (su ip es %s)\nAlternativamente ingrese \"TEST\" para probar unicamente la encripción y desencripción matricial: ",
         "attributes": {
             "color": "MAGENTA",
             "bold": false
+        }
+    },
+    {
+        "name": "test",
+        "string": "Entrando modo de prueba: \nIngrese /switch para cambiar entre encripción y desencripción. \nIngrese /change [pin] para cambiar en pin de encripcion. \nIngrese /exit para salir.\n",
+        "attributes": {
+            "color": "MAGENTA",
+            "bold": false
+        }
+    },
+    {
+        "name": "testInput",
+        "string": "Ingrese un mensaje o comando: ",
+        "attributes": {
+            "color": "WHITE",
+            "bold": false
+        }
+    },
+    {
+        "name": "testAnswer",
+        "string": "Respuesta> : ",
+        "attributes": {
+            "color": "CYAN",
+            "bold": true
+        }
+    },
+    {
+        "name": "unknownCommand",
+        "string": "Comando no conocido.\n",
+        "attributes": {
+            "color": "RED",
+            "bold": true
+        }
+    },
+    {
+        "name": "encMode",
+        "string": "Encripción> ",
+        "attributes": {
+            "color": "YELLOW",
+            "bold": true
+        }
+    },
+    {
+        "name": "decMode",
+        "string": "Desencripción> ",
+        "attributes": {
+            "color": "BLUE",
+            "bold": true
+        }
+    },
+    {
+        "name": "exiting",
+        "string": "Saliendo...",
+        "attributes": {
+            "color": "MAGENTA",
+            "bold": true
         }
     },
     {
