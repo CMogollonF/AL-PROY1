@@ -1,5 +1,7 @@
 package encription.Matrix;
 
+import encription.chat.ChatUtils;
+
 
 public class Encription {
     private static double[][] encriptionMatrix;
@@ -9,7 +11,10 @@ public class Encription {
     }
 
     public static String encriptMessage(String message){
-        if( GridOperations.calculateDet(encriptionMatrix) == 0 ) System.out.println("WARNING: String cannot be decoded (determinant = 0)");
+        if( GridOperations.calculateDet(encriptionMatrix) == 0 ) {
+            ChatUtils.println("WARNING: String cannot be decoded (determinant = 0)");
+            return "";
+        }
 
         StringBuilder encriptedMessage = new StringBuilder();
         for(int i = 0; i < message.length(); i += encriptionMatrix.length) {

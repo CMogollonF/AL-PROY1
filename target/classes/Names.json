@@ -64,6 +64,14 @@
         }
     },
     {
+        "name": "ChangingText",
+        "string": "%d)...",
+        "attributes": {
+            "color": "GREEN",
+            "bold": false
+        }
+    },
+    {
         "name": "ConnectingServer",
         "string": "Buscando cliente...",
         "attributes": {

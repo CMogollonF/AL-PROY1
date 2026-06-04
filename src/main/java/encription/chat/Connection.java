@@ -59,7 +59,7 @@ public class Connection {
                 } catch (IOException e){
                     ChatUtils.removeMessage(4 + connectionAttemps.toString().length());
                     connectionAttemps++;
-                    ChatUtils.print(String.format("%d)...", connectionAttemps));
+                    ChatUtils.print(String.format(ParseText.getText("ChangingText"), connectionAttemps));
                     if(connectionAttemps >= 15){
                         ChatUtils.println(ParseText.getText("FailedConnection"));
                         Thread.sleep(500);

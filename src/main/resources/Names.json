@@ -1,15 +1,71 @@
 [
     {
         "name": "start",
-        "string": "Ingrese la ip remota o \"SERVER\" para tomar rol de servidor (su ip es %s): ",
+        "string": "Ingrese la ip remota o \"SERVER\" para tomar rol de servidor (su ip es %s)\nAlternativamente ingrese \"TEST\" para probar unicamente la encripción y desencripción matricial ",
         "attributes": {
             "color": "MAGENTA",
             "bold": false
         }
     },
     {
+        "name": "test",
+        "string": "Entrando modo de prueba: \nIngrese /switch para cambiar entre encripción y desencripción. \nIngrese /change [pin] para cambiar en pin de encripcion. \nIngrese /exit para salir.\n",
+        "attributes": {
+            "color": "MAGENTA",
+            "bold": false
+        }
+    },
+    {
+        "name": "testInput",
+        "string": "Ingrese un mensaje o comando: ",
+        "attributes": {
+            "color": "WHITE",
+            "bold": false
+        }
+    },
+    {
+        "name": "testAnswer",
+        "string": "Respuesta> : ",
+        "attributes": {
+            "color": "CYAN",
+            "bold": true
+        }
+    },
+    {
+        "name": "unknownCommand",
+        "string": "Comando no conocido.\n",
+        "attributes": {
+            "color": "RED",
+            "bold": true
+        }
+    },
+    {
+        "name": "encMode",
+        "string": "Encripción> ",
+        "attributes": {
+            "color": "YELLOW",
+            "bold": true
+        }
+    },
+    {
+        "name": "decMode",
+        "string": "Desencripción> ",
+        "attributes": {
+            "color": "BLUE",
+            "bold": true
+        }
+    },
+    {
         "name": "ConnectingClient",
-        "string": "Trying to connect to remote (%d)...",
+        "string": "Estableciendo conexión con remoto (%d)...",
+        "attributes": {
+            "color": "GREEN",
+            "bold": false
+        }
+    },
+    {
+        "name": "ChangingText",
+        "string": "%d)...",
         "attributes": {
             "color": "GREEN",
             "bold": false
@@ -17,7 +73,7 @@
     },
     {
         "name": "ConnectingServer",
-        "string": "Looking for client...",
+        "string": "Buscando cliente...",
         "attributes": {
             "color": "GREEN",
             "bold": false
@@ -25,7 +81,7 @@
     },
     {
         "name": "FailedConnection",
-        "string": "\nRemote failed to respond in time. Terminating...",
+        "string": "\nConexión no establecida, finalizando...",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -33,7 +89,7 @@
     },
     {
         "name": "RemoteUnavailable",
-        "string": "Remote unavaliable. Terminating...",
+        "string": "Remoto no disponible, finalizando...",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -41,7 +97,7 @@
     },
     {
         "name": "SocketUnavailable",
-        "string": "Server socket unavailable.",
+        "string": "Socket no disponible.",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -49,7 +105,7 @@
     },
     {
         "name": "RemoteConnected",
-        "string": "\nRemote connected. Starting session...",
+        "string": "\nRemoto conectado, inicializando...",
         "attributes": {
             "color": "GREEN",
             "bold": false
@@ -57,7 +113,7 @@
     },
     {
         "name": "ConnectionTerminated",
-        "string": "Connection terminated.",
+        "string": "Conexión finalizada.",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -65,7 +121,7 @@
     },
     {
         "name": "AskForPin",
-        "string": "Enter encription pin: ",
+        "string": "Ingrese pin de encripción: ",
         "attributes": {
             "color": "MAGENTA",
             "bold": false
@@ -73,7 +129,7 @@
     },
     {
         "name": "MalformedPin",
-        "string": "Malformed pin. Pin must be an exact square root (lenght 4, 9, 16, ...)",
+        "string": "Pin no valido, debe ser una raíz exacta (4, 9, 16, ...)",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -81,7 +137,7 @@
     },
      {
         "name": "NotANumber",
-        "string": "Malformed pin. Pin must be numerical.",
+        "string": "Pin debe ser un número positivo.",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -89,7 +145,7 @@
     },
     {
         "name": "MalformedIP",
-        "string": "Malformed IP adress.",
+        "string": "Dirección IP no válida.",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -97,7 +153,7 @@
     },
     {
         "name": "RemoteClosed",
-        "string": "Remote closed connection.",
+        "string": "Conexioń cerrada por remoto.",
         "attributes": {
             "color": "RED",
             "bold": true
@@ -113,7 +169,7 @@
     },
     {
         "name": "UserDefault",
-        "string": "YOU",
+        "string": "TU",
         "attributes": {
             "color": "GREEN",
             "bold": true
@@ -121,9 +177,17 @@
     },
     {
         "name": "RemoteDefault",
-        "string": "REMOTE",
+        "string": "REMOTO",
         "attributes": {
             "color": "YELLOW",
+            "bold": true
+        }
+    },
+    {
+        "name": "exiting",
+        "string": "Saliendo...\n",
+        "attributes": {
+            "color": "MAGENTA",
             "bold": true
         }
     }

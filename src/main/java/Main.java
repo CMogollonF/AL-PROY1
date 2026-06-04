@@ -5,8 +5,10 @@ import java.net.InetAddress;
 import encription.Coloring.ParseText;
 import encription.Matrix.CreateMatrix;
 import encription.Matrix.Encription;
+import encription.Matrix.GridOperations;
 import encription.chat.ChatUtils;
 import encription.chat.Connection;
+import encription.chat.TestMode;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException{
@@ -19,10 +21,15 @@ public class Main {
         
         //We make sure the pin is an actual number
         try {
-            Integer.parseInt(pin);
+            long rawPin = Long.parseLong(pin);
+            if (rawPin < 0){
+                ChatUtils.println(ParseText.getText( "NegativePin"));
+                Thread.sleep(100);
+                System.exit(0);
+            }
         } catch (NumberFormatException e) {
             ChatUtils.println(ParseText.getText( "NotANumber"));
-            Thread.sleep(500);
+            Thread.sleep(100);
             System.exit(0);
         }
         
@@ -31,7 +38,13 @@ public class Main {
 
         if (matrix == null){
             ChatUtils.println(ParseText.getText( "MalformedPin"));
-            Thread.sleep(500);
+            Thread.sleep(100);
+            System.exit(0);
+        }
+
+        if (GridOperations.calculateDet(matrix) == 0) {
+            ChatUtils.println(ParseText.getText( "DeterminantZero"));
+            Thread.sleep(100);
             System.exit(0);
         }
         
@@ -44,10 +57,15 @@ public class Main {
         ds.close();
         
         //Ask the user for remote ip (or to take the role of the server)
-        ChatUtils.print(String.format(ParseText.getText( "start"), localAddress));
+        ChatUtils.println(String.format(ParseText.getText( "start"), localAddress));
+        ChatUtils.print(String.format(ParseText.getText("ChatBlueprint"), ParseText.getText("UserDefault"), ""));
         ipAdress = ChatUtils.readLine();
         ChatUtils.println("");
 
+        if(ipAdress.toUpperCase().equals("TEST")){
+            ChatUtils.printFromJson("test");
+            TestMode.startTestMode();
+        }
         //Make sure we actually got an ip address (or that we chose to me the server/ connect to the same pc)
         if (!(ipAdress.toUpperCase().equals("SERVER") || ipAdress.toUpperCase().equals("LOCALHOST")) && !ipAdress.matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")){
             ChatUtils.println(ParseText.getText( "MalformedIP"));
