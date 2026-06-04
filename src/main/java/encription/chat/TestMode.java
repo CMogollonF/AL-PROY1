@@ -57,8 +57,4 @@ public class TestMode {
             }
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/main
