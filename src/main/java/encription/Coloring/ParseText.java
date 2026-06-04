@@ -2,9 +2,15 @@ package encription.Coloring;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import com.google.gson.Gson;
 
 public class ParseText {
+    /**
+     * Fetchs a string with its corresponding format from the json.
+     * @param textName The name of the string, as defined in the json
+     * @return The formatted string for use in the terminal
+     */
     public static String getText(String textName){
 
         Text text = fetchText(textName);
@@ -15,6 +21,11 @@ public class ParseText {
     
     } 
 
+    /**
+     * Figures out the style of the text and converts it into a TextStyle
+     * @param text the Text element to get the style from
+     * @return The Style to use for the string
+     */
     private static TextStyle getTextStyle(Text text){
 
         Colors color = null;
@@ -30,6 +41,11 @@ public class ParseText {
         );
     }
 
+    /**
+     * Finds the text in the json and returns a Text element that represents the string along with its style
+     * @param textName The name of the string, as defined in the json
+     * @return A Text element composed of the message, along with its style
+     */
     private static Text fetchText(String textName){
 
         InputStream is = Thread.currentThread()

@@ -6,10 +6,22 @@ import encription.chat.ChatUtils;
 public class Encription {
     private static double[][] encriptionMatrix;
 
+    /**
+     * Sets the encryption matrix to be used for encryption/decryption operations.
+     * 
+     * @param matrix the encryption matrix
+     */
     public static void setMatrix(double[][] matrix){
         encriptionMatrix = matrix;
     }
 
+    /**
+     * Encrypts a message using matrix-based encryption.
+     * Returns empty string if matrix has determinant 0 (non-invertible).
+     * 
+     * @param message the plaintext message to encrypt
+     * @return the encrypted message, or empty string if message cannot be decrypted.
+     */
     public static String encriptMessage(String message){
         if( GridOperations.calculateDet(encriptionMatrix) == 0 ) {
             ChatUtils.println("WARNING: String cannot be decoded (determinant = 0)");
@@ -30,6 +42,13 @@ public class Encription {
         return encriptedMessage.toString();
     }
 
+    /**
+     * Decrypts a message using matrix-based decryption.
+     * Returns error message if matrix has determinant 0 (cannot be inverted).
+     * 
+     * @param message the encrypted message to decrypt
+     * @return the decrypted message, or error message if message cannot be decrypted.
+     */
     public static String decryptMessage(String message){
         if( GridOperations.calculateDet(encriptionMatrix) == 0 ) return "Message can't be decrypted (determinant = 0)";
 

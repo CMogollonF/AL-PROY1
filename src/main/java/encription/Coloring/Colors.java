@@ -2,6 +2,9 @@ package encription.Coloring;
 
 import org.jline.utils.AttributedStyle;
 
+/**
+ * Auxiliar method to convert enum colors into jLine colors
+ */
 public enum Colors {
     BLACK (AttributedStyle.BLACK),
     RED(AttributedStyle.RED),
@@ -14,10 +17,17 @@ public enum Colors {
 
     private final int jlineColor;
 
+    /**
+     * Creates the correlation between the color and its jline equivalent
+     * @param jlineColor The numerical equivalent of the color in jLine
+     */
     Colors(int jlineColor){
         this.jlineColor = jlineColor;
     }
 
+    /**
+     * @return The color for jline to use
+     */
     public int getJlineColor(){
         return jlineColor;
     }
