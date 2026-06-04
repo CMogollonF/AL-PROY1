@@ -5,24 +5,40 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 import encription.Coloring.ParseText;
 import encription.Matrix.Encription;
 
 public class Connection {
 
+    /**
+     * Handles the main read/write interaction within the server and the client. Also creates and handles the terminal for
+     * writing and reading operations using the Writer. Note that only one machine MUST take the role of the server; this method
+     * won't work if both machines try to take the same role.
+     * 
+     * We refer to the machine making the connection as Remote, and the machine taking the role of the server as Server. 
+     * 
+     * @param ipAddress the ip address of the remote connection (or SERVER to take the role of the server)
+     * @throws InterruptedException If the terminal requests to stop execution
+     * @throws IOException If Names.json doesn't exist
+     */
     public static void Connect(String ipAddress) throws InterruptedException, IOException{
         Socket socket = null;
 
+        // The system chose to take the role of the server
         if ("SERVER".equals(ipAddress.toUpperCase())){
             ServerSocket server;
             try{
+                //Start listening on socket 5000
                 server = new ServerSocket(5000);
             } catch (IOException e) {
+                //Socket was occupied
                 ChatUtils.println(ParseText.getText("SocketUnavailable"));
                 return;
             }
 
             try{
+                //Wait until remote connects
                 ChatUtils.println(ParseText.getText("ConnectingServer"));
                 socket = server.accept();
                 server.close();
@@ -30,8 +46,10 @@ public class Connection {
                 ChatUtils.println("\n" + ParseText.getText("RemoteUnavailable"));
             }
         }
+        //The system chose to take the role of remote
         else {
-            int connectionAttemps = 0;
+            //We have a total of 15 attempts to establish a connection before timeout
+            Integer connectionAttemps = 0;
 
             ChatUtils.print(String.format(ParseText.getText("ConnectingClient"), connectionAttemps));
             
@@ -39,11 +57,13 @@ public class Connection {
                 try {
                     socket = new Socket(ipAddress, 5000);
                 } catch (IOException e){
+                    ChatUtils.removeMessage(4 + connectionAttemps.toString().length());
                     connectionAttemps++;
-                    ChatUtils.print(String.format("\b\b\b\b\b%d)...", connectionAttemps));
+                    ChatUtils.print(String.format("%d)...", connectionAttemps));
                     if(connectionAttemps >= 15){
                         ChatUtils.println(ParseText.getText("FailedConnection"));
-                        return;
+                        Thread.sleep(500);
+                        System.exit(0);
                     }
                     Thread.sleep(1000);
                 }
@@ -86,6 +106,7 @@ public class Connection {
 
                     if (message.isEmpty()) {
                         ChatUtils.println(ParseText.getText("ConnectionTerminated"));
+                        Thread.sleep(500);
                         listener.terminate();
                     } else {
                         String encripted = Encription.encriptMessage(message.toString());
@@ -138,7 +159,7 @@ public class Connection {
                     
                     String decrypted = Encription.decryptMessage(msg);
 
-                    ChatUtils.removeMessage(message.length());
+                    ChatUtils.removeMessage(message.length() + 7);
                     ChatUtils.println(String.format(ParseText.getText("ChatBlueprint"),ParseText.getText("RemoteDefault"), decrypted));
                     ChatUtils.printCurrentMessage(message.toString());
 

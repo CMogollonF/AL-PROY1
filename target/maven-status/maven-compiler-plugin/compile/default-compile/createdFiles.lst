@@ -13,6 +13,9 @@ encription\Coloring\Colors.class
 encription\Coloring\Text$Attributes.class
 encription\Matrix\TestEncription.class
 Main.class
-encription\Coloring\Formatter.class
-encription\Coloring\TextStyle.class
-encription\Coloring\Text.class
+encription/Matrix/CreateMatrix.class
+encription/chat/Writer.class
+encription/Coloring/Colors.class
+encription/Matrix/TestDet.class
+encription/Coloring/Text$Attributes.class
+encription/Coloring/TextStyle.class
